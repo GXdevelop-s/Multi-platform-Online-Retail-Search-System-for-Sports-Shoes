@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static '/plugins/bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+<body>
+<div class="container">
+    <h2>欢迎来到运动鞋类推荐系统，请登录</h2>
+    <form novalidate method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>账户名</label>
+            {{ form.username }}
+            <span>{{ form.username.errors.0 }}</span>
+        </div>
+        <div class="form-group">
+            <label>密码</label>
+            {{ form.password }}
+            <span>{{ form.password.errors.0 }}</span>
+        </div>
+        <input type="submit" value="登录" class="btn btn-primary">
+    </form>
+    <button id="btn_register" class="btn btn-primary">注册</button>
+</div>
+<script type="text/javascript" src="{% static '/js/jQuery v3.6.3.js' %}"></script>
+<script type="text/javascript" src="{% static '/plugins/bootstrap-3.4.1-dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        bind_register_event()
+    })
+
+    function bind_register_event() {
+        $("#btn_register").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/pre/register/',  // Ajax请求的URL
+                success: function (response) {
+                    // 处理成功响应
+                    window.location.href = "/"+response.url;  // 页面跳转到新页面的URL,加斜杠是绝对路径
+                },
+                error: function (xhr, status, error) {
+                    // 处理错误响应
+                    console.log(error);
+                }
+            });
+        })
+    }
+</script>
+</body>
+</html>

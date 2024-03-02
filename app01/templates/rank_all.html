@@ -1,0 +1,74 @@
+{% extends 'Layout.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        body {
+            background-image: url("{% static '/images/rank_background.jpg' %}");
+        }
+        .rank-list {
+            width: 1000px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .rank-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .rank-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .rank-item .rank {
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .rank-item .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .rank-item .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 设置前三名的字体颜色 */
+        .rank-item:nth-child(1) .rank,
+        .rank-item:nth-child(2) .rank,
+        .rank-item:nth-child(3) .rank {
+            color: #FF0000; /* 红色 */
+        }
+
+        .rank-item:nth-child(1) .name,
+        .rank-item:nth-child(2) .name,
+        .rank-item:nth-child(3) .name {
+            color: #008000; /* 绿色 */
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="rank-list">
+        {% for rank_tuple in rank_list %}
+            <div class="rank-item">
+                <div class="rank">{{ rank_tuple.0 }}</div>  <!--排名-->
+                <span STYLE="width: 1000px"></span>
+                <div class="name">{{ rank_tuple.1 }}</div>  <!--品牌-->
+                <span STYLE="width: 500px"></span>
+                <div class="description" style="width: 5000px">{{ rank_tuple.2 }}</div> <!--品牌描述-->
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static '/plugins/bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+<body>
+{#导航栏区域#}
+<nav class="navbar navbar-default">
+    <div class="container">
+        {#导航栏名称#}
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index/">运动鞋推荐系统</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            {#导航栏左侧#}
+            <ul class="nav navbar-nav">
+                <li><a href="/index/">首页</a></li>
+                <li><a href="/recom/transition/">商品推荐</a></li>
+                <li><a href="/admin/product/list/">产品管理</a></li>    <!--for admin only-->
+                <li><a href="/admin/user/list/">用户管理</a></li>
+            </ul>
+            {#导航栏右侧#}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{ request.session.info.name }}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="ad"><a href="/ad/add/">发布广告</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/logout/">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.导航栏结束 -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div>
+    {% block content %}{% endblock %}
+</div>
+<script type="text/javascript" src="{% static '/js/jQuery v3.6.3.js' %}"></script>
+<script type="text/javascript" src="{% static '/plugins/bootstrap-3.4.1-dist/js/bootstrap.js' %}"></script>
+{% block js %}{% endblock %}
+<script TYPE="text/javascript">
+    // 对用户隐藏广告发布入口
+    $(function () {
+        hide_ad_event()
+    })
+
+    function hide_ad_event() {
+        var name = "{{ request.session.info.name }}"
+        if (name.substring(0, 6) !== "admin_")
+            $("#ad").hide()
+    }
+</script>
+</body>
+</html>

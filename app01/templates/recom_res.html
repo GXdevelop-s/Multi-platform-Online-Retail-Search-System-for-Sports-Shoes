@@ -1,0 +1,68 @@
+{#{% extends 'Layout.html' %}#}
+{#{% block content %}#}
+{#    <div class="list-group">#}
+{#        {% for foo_tuple in datalist1 %}#}
+{#            <a href="{{ foo_tuple.0 }}" class="list-group-item active">#}
+{#                <h4 class="list-group-item-heading">偏好商品---{{ forloop.counter }}</h4>#}
+{#                <p class="list-group-item-text">{{ foo_tuple.1 }}</p>#}
+{#                <button type="button" class="btn btn-lg btn-primary" disabled="disabled">{{ foo_tuple.2 }}</button>#}
+{#            </a>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% endblock %}#}
+{% extends 'Layout.html' %}
+{% block content %}
+    <div class="list-group col-md-10" id="pageContent" >
+        {% for foo_tuple in datalist %}
+            <a href="{{ foo_tuple.0 }}" class="list-group-item active">
+                <h4 class="list-group-item-heading">偏好商品---{{ forloop.counter }}</h4>
+                <p class="list-group-item-text">{{ foo_tuple.1 }}</p>
+                <button type="button" class="btn btn-lg btn-primary" disabled="disabled">参考价格：  {{ foo_tuple.2 }}￥</button>
+                <hr>
+            </a>
+
+        {% endfor %}
+    </div>
+
+    <ul class="pagination" id="pagination"></ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var pageSize = 4; // 每页显示的数据数量
+        var currentPage = 1; // 当前页码
+
+        function displayPage(page) {
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            var items = $("#pageContent .list-group-item");
+            items.hide();
+
+            items.slice(startIndex, endIndex).show();
+        }
+
+        function renderPagination() {
+            var items = $("#pageContent .list-group-item");
+            var totalPages = Math.ceil(items.length / pageSize);
+
+            var pagination = "";
+            for (var i = 1; i <= totalPages; i++) {
+                var activeClass = (i === currentPage) ? "active" : "";
+                pagination += '<li class="' + activeClass + '"><a href="#" onclick="onPageClick(' + i + ')">' + i + '</a></li>';
+            }
+
+            $("#pagination").html(pagination);
+        }
+
+        function onPageClick(page) {
+            currentPage = page;
+            displayPage(page);
+            renderPagination();
+        }
+
+        $(document).ready(function() {
+            displayPage(currentPage);
+            renderPagination();
+        });
+    </script>
+{% endblock %}

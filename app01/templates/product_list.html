@@ -1,0 +1,52 @@
+{% extends 'Layout.html' %}
+{% block content %}
+    {#主体部分#}
+    <div class="container">
+        {# 新增按钮 #}
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-primary" href="/admin/product/add/">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新增
+            </a>
+        </div>
+        {# 面板部分 #}
+        <div>
+            {# 表格头 #}
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                鞋类产品列表
+            </div>
+            {# 表格主体 #}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>类型</th>
+                    <th>图片1</th>
+                    <th>图片2</th>
+                    <th>图片3</th>
+                    <th>说明</th>
+                    <th>排行</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in query_set %}
+                    <tr>
+                        <th scope="row">{{ obj.id }}</th>
+                        <td>{{ obj.get_type_display }}</td>
+                        <td>{{ obj.picture1 }}</td>
+                        <td>{{ obj.picture2 }}</td>
+                        <td>{{ obj.picture3 }}</td>
+                        <td>{{ obj.details }}</td><!--模板语法不能用python的格式化，要用|的方式传到date函数中格式化-->
+                        <td>{{ obj.rank_link }}</td><!--模板语法中不允许使用括号，如果有括号jango会自动补齐-->
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/admin/product/{{ obj.id }}/edit/">编辑</a>
+                            <a class="btn btn-danger btn-xs" href="/admin/product/{{ obj.id }}/del/">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

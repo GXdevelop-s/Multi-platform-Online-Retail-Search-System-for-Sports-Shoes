@@ -1,0 +1,74 @@
+{% extends 'Layout.html' %}
+{% load static %}
+{% block content %}
+    <div class="jumbotron" style="height: 600px">
+        <div class="container">
+            <h1>很荣幸见到你</h1>
+            <p>让我们为您的运动之旅提供完美推荐！
+                我们的运动鞋推荐系统通过精确的分析和独特的设计，
+                为您找到最适合您风格和需求的鞋款。无论是跑步、篮球还是休闲运动，
+                我们将为您提供卓越的舒适性、支撑性和时尚感，助您达到最佳表现。
+                我们还将为您的选购提供独特的排行参考，让你更轻松地做决定！
+                迈向新的高度，从一双理想的运动鞋开始！</p>
+            <div class="clearfix">
+                <!--左侧-->
+                <div class="col-xs-6" style="float: left">
+                    <p style="margin-top: 70px"><a id="btn1" class="btn btn-primary btn-lg" href="/recom/recommend/"
+                                                   role="button">开始体验</a>
+                    </p>
+                    <p style="margin-top: 70px"><a id="btn2" class="btn btn-primary btn-lg"
+                                                   href="/recom/ranking_choice/"
+                                                   role="button">查看排行</a>
+                    </p>
+                </div>
+                <!--右侧-->
+                <div class="col-xs-6" style="float: right">
+                    <img src="{% static 'images/promotion.jpg' %}" style="height: 310px;width: 500px" alt="运动鞋推荐">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            //a 标签有href可以直接跳转，所以这部分代码不执行，留作其它功能备用
+            bind_recom_event()
+            bind_rank_event()
+        })
+
+        function bind_recom_event() {
+            $("#btn1").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/recom/pre/recommend/',  // Ajax请求的URL
+                    success: function (response) {
+                        // 处理成功响应
+                        window.location.href = response.url;  // 页面跳转到新页面的URL,加斜杠是绝对路径
+                    },
+                    error: function (xhr, status, error) {
+                        // 处理错误响应
+                        console.log(error);
+                    }
+                })
+            })
+        }
+
+        function bind_rank_event() {
+            $("#btn2").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'recom/pre/ranking_choice/',  // Ajax请求的URL
+                    success: function (response) {
+                        // 处理成功响应
+                        window.location.href = response.url;  // 页面跳转到新页面的URL,加斜杠是绝对路径
+                    },
+                    error: function (xhr, status, error) {
+                        // 处理错误响应
+                        console.log(error);
+                    }
+                })
+            })
+        }
+    </script>
+{% endblock %}

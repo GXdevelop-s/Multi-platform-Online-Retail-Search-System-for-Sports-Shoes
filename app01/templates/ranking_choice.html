@@ -1,0 +1,22 @@
+{% extends 'Layout.html' %}
+{% block content %}
+    <!--第一个循环是行循环-->
+    {% for query_set in query_set_list %}
+        <div class="row">
+            <!--第二个循环是行内元素循环-->
+            {% for obj in query_set %}
+                <div class="col-xs-6 col-md-3">
+                    <a href="/recom/{{ obj.type }}/ranking/" class="thumbnail">
+                        <img data-src="holder.js/100%x180" alt="100%x180"
+                             style="height: 180px; width: 100%; display: block;"
+                             src="{{ obj.picture2.url }}"
+                             data-holder-rendered="true">
+                        <div class="caption">
+                            <h4>{{ obj.get_type_display }}</h4>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

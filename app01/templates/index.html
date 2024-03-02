@@ -1,0 +1,89 @@
+{% extends 'Layout.html' %}
+{% block content %}
+    <div class="container">
+        <div class="bs-example" data-example-id="thumbnails-with-custom-content">
+            <!--猜你喜欢部分-->
+            <div class="row">
+                <div><p class="text-primary">猜您喜欢</p></div>
+                <div id="guess1" class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/100%x200" alt="100%x200"
+                             src="{{ product_obj.picture1.url }}"
+                             data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                        <div class="caption">
+                            <h3>{{ product_obj.get_type_display }}</h3>
+                            <p>{{ product_obj.details1 }}</p>
+                            <p>
+                                <button id="dislike_btn1" class="btn btn-danger">不喜欢</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="guess2" class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/100%x200" alt="100%x200"
+                             src="{{ product_obj.picture2.url }}"
+                             data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                        <div class="caption">
+                            <h3>{{ product_obj.get_type_display }}</h3>
+                            <p>{{ product_obj.details2 }}</p>
+                            <p>
+                                <button id="dislike_btn2" class="btn btn-danger">不喜欢</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="guess3" class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/100%x200" alt="100%x200"
+                             src="{{ product_obj.picture3.url }}"
+                             data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                        <div class="caption">
+                            <h3>{{ product_obj.get_type_display }}</h3>
+                            <p>{{ product_obj.details3 }}</p>
+                            <p>
+                                <button id="dislike_btn3" class="btn btn-danger">不喜欢</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--广告部分-->
+            <div class="row" style="height: 20%">
+                <div class="col-xs-12">
+                    <div id="advertisement">
+                        <img src="{{ ad_obj.ad_picture.url }}" alt="" style="height: 160px; width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            bind_dislike_btn1_event();
+            bind_dislike_btn2_event();
+            bind_dislike_btn3_event()
+        })
+
+        //点击不喜欢隐藏窗格
+        function bind_dislike_btn1_event() {
+            $("#dislike_btn1").click(function () {
+                $("#guess1").hide()
+            })
+        }
+
+        function bind_dislike_btn2_event() {
+            $("#dislike_btn2").click(function () {
+                $("#guess2").hide()
+            })
+        }
+
+        function bind_dislike_btn3_event() {
+            $("#dislike_btn3").click(function () {
+                $("#guess3").hide()
+            })
+        }
+    </script>
+{% endblock %}

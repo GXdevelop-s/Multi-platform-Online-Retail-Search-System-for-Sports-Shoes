@@ -1,0 +1,26 @@
+{% extends 'Layout.html' %}
+{% block title %}
+    关键字选择
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">关键字选择</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" novalidate>   <!--关闭浏览器校验-->
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <!--label就是models中的verbosename-->
+                            {{ field.label }}:{{ field }}
+                            <span style="color: red">{{ field.errors.0 }}</span>   <!--error是一个列表，所以要取首个-->
+                        </div>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-primary" value="开始推荐">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
